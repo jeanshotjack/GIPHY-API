@@ -1,14 +1,21 @@
-// topics array for gifs
-// button for each string in array
-var topics = [];
+$(document).ready(function () {
+    // topics array for gifs
+    
+    var topics = ["judgment", "sarcasm", "laughing", "crying", "surprised", "no", "yes", "clapping"];
 
-function displayButton () {
-    $("#gifButton").empty(); // empty div prevent duplicate
-    for (var i=0; i < topics.length; i++) {
-        // create button 
-        // add classadd attribute data topic[i]
-        // text topics i;
-        // append button to gifButton
+    // button for each string in array
+    function reactButtons() {
+        $("#gifClick").empty(); // empty div prevent duplicate
+        for (var i = 0; i < topics.length; i++) {
+            // create button 
+            var gifClick = ("<button>");
+            gifClick.addClass("topic");
+            // add class
+            //add attribute
+            gifClick.attr("data-name", topics[i]);
+            gifClick.text(topics[i]);
+            $("#gifClick").append(gifClick);
+        }
     }
-}
+});
 
