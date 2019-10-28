@@ -1,9 +1,12 @@
     // topics array for gifs
-    
+   $(document).ready(function() {
     var topics = ["judgment", "sarcasm", "laugh", "cry", "surprised", "no", "yes", "clapping", "anger", "excitement"];
+
+    console.log(topics);
 
     // button for each string in array
     function makeButtons() {
+        $("#gifClick").empty();
         for (i = 0; i < topics.length; i++) {
             // create button 
             var react = $("<button>");
@@ -28,6 +31,8 @@
 
       // display the whole thing
       makeButtons();
+    });
+
 
 // NOTES
 
