@@ -32,40 +32,65 @@ $(document).ready(function () {
   // display the whole thing
   makeButtons();
 
-  $("button").on("click", function() {
+
+  // this like sorta works but it's the wrong gifs
+  $("button").on("click", function () {
     $("#gifsHere").empty();
     // create queryURL
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      topics[i] + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
-  
+      topics + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
+
     // Performing an AJAX request with the queryURL
     $.ajax({
       url: queryURL,
       method: "GET"
     })
       // After data comes back from the request
-      .then(function(showGifs) {
+      .then(function (response) {
 
-        var topics = showGifs.data;
+        var results = response.data;
 
         for (var i = 0; i < topics.length; i++) {
 
-          var topicsDiv = $("<div>");
-  
-          var p = $("<p>").text("Rating: " + topics[i].rating);
-  
+          var gifDiv = $("<div>");
+
+          var p = $("<p>").text("Rating: " + results[i].rating);
+
           var reactImage = $("<img>");
-          
-          reactImage.attr("src", topics[i].images.fixed_height.url);
-  
-          topicsDiv.append(p);
-          topicsDiv.append(reactImage);
-  
-          $("#gifsHere").prepend(topicsDiv);
+
+
+          reactImage.attr("src", results[i].images.fixed_height.url);
+
+          gifDiv.append(p);
+          gifDiv.append(reactImage);
+
+          $("#gifsHere").prepend(gifDiv);
+
         }
       });
   });
+
+ // this part breaks the app for some reason and now it doesn't do anything
+$(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
+
+  var state = $(this).attr("data-state"); //- STORE IMAGE STATE
+
+  var animate = $(this).attr("data-animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
+  var still = $(this).attr("data-still");
+
+  if (state === "still") { //- IT WILL ANIMATE IF STILL
+    $(this).attr("src", animate);
+    $(this).attr("data-state", "animate");
+  }
+  if (state === "animate") { //IT WILL PAUSE IF MOVING
+    $(this).attr("src", still);
+    $(this).attr("data-state", "still");
+  }
 });
+
+});
+
+
 
 
 
@@ -96,4 +121,3 @@ $(document).ready(function () {
         $(this).attr("data-state", "still");
       } */
 
-// FROM DYNAMIC ELEMENTS
