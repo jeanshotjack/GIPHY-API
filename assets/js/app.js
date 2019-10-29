@@ -64,58 +64,38 @@ $(document).ready(function () {
           // var animate = $(".animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
           // var still = $(".still");
           reactImage.addClass("gif");
-          reactImage.attr("data-still",results[i].images.fixed_height_still.url); // still image
-          reactImage.attr("data-animate",results[i].images.fixed_height.url); // animated image
+          reactImage.attr("data-still", results[i].images.fixed_height_still.url); // still image
+          reactImage.attr("data-animate", results[i].images.fixed_height.url); // animated image
           reactImage.attr("data-state", "still"); // set the image state
-          
+
 
           gifDiv.append(p);
           gifDiv.append(reactImage);
 
           $("#gifsHere").prepend(gifDiv);
 
-          $(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
+          $(".gif").on("click", function () { //- WHEN YOU CLICK THE IMAGE
 
-           //- STORE IMAGE STATE
-           var state = $(this).attr("data-state"); 
-           var animate = $(this).attr("data-animate");
-           var still = $(this).attr("data-still");
-          
+            //- STORE IMAGE STATE
+            var state = $(this).attr("data-state");
+            var animate = $(this).attr("data-animate");
+            var still = $(this).attr("data-still");
+
             if (state === "still") { //- IT WILL ANIMATE IF STILL
-              // $(this).attr("src", animate);
-              // $(this).attr("data-state", "animate");
+
               $(this).attr("src", $(this).data("animate"));
-        $(this).attr("data-state", "animate");
+              $(this).attr("data-state", "animate");
             }
             else { //IT WILL PAUSE IF MOVING
               $(this).attr("src", $(this).data("still"));
               $(this).attr("data-state", "still");
-              // $(this).attr("src", still);
-              // $(this).attr("data-state", "still");
+
             }
           });
 
         }
       });
   });
-
-//  // this part breaks the app for some reason and now it doesn't do anything
-// $(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
-
-//   var state = $(this).attr("data-state"); //- STORE IMAGE STATE
-
-//   var animate = $(this).attr("data-animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
-//   var still = $(this).attr("data-still");
-
-//   if (state === "still") { //- IT WILL ANIMATE IF STILL
-//     $(this).attr("src", animate);
-//     $(this).attr("data-state", "animate");
-//   }
-//   if (state === "animate") { //IT WILL PAUSE IF MOVING
-//     $(this).attr("src", still);
-//     $(this).attr("data-state", "still");
-//   }
-// });
 
 });
 
