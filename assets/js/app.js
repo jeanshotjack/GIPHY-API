@@ -1,40 +1,78 @@
-    // topics array for gifs
-   $(document).ready(function() {
-    var topics = ["judgment", "sarcasm", "laugh", "cry", "surprised", "no", "yes", "clapping", "anger", "excitement"];
+// topics array for gifs
+$(document).ready(function () {
+  var topics = ["judgment", "sarcasm", "laugh", "cry", "surprised", "no", "yes", "clapping", "anger", "excitement"];
 
-    console.log(topics);
+  console.log(topics);
 
-    // button for each string in array
-    function makeButtons() {
-        $("#gifClick").empty();
-        for (i = 0; i < topics.length; i++) {
-            // create button 
-            var react = $("<button>");
-            react.addClass("topic");
-            // add class
-            //add attribute
-            react.attr("data-name", topics[i]);
-            react.text(topics[i]);
-            $("#gifClick").append(react);
-        }
+  // button for each string in array
+  function makeButtons() {
+    $("#gifClick").empty();
+    for (i = 0; i < topics.length; i++) {
+      // create button 
+      var react = $("<button>");
+      react.addClass("topic");
+      // add class
+      //add attribute
+      react.attr("data-name", topics[i]);
+      react.text(topics[i]);
+      $("#gifClick").append(react);
     }
+  }
 
-    // make another button for whatever user writes in
-    $("#add-react").on("click", function(event) {
-        // so it can't submit on its own
-        event.preventDefault();
-        var react = $("#react-input").val().trim();
-        // The movie from the textbox is then added to our array
-        topics.push(react);
-        makeButtons();
+  // make another button for whatever user writes in
+  $("#add-react").on("click", function (event) {
+    // so it can't submit on its own
+    event.preventDefault();
+    var react = $("#react-input").val().trim();
+    // The movie from the textbox is then added to our array
+    topics.push(react);
+    makeButtons();
+  });
+
+  // display the whole thing
+  makeButtons();
+
+  $("button").on("click", function() {
+    $("#gifsHere").empty();
+    // create queryURL
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+      topics[i] + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
+  
+    // Performing an AJAX request with the queryURL
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      // After data comes back from the request
+      .then(function(showGifs) {
+
+        var topics = showGifs.data;
+
+        for (var i = 0; i < topics.length; i++) {
+
+          var topicsDiv = $("<div>");
+  
+          var p = $("<p>").text("Rating: " + topics[i].rating);
+  
+          var reactImage = $("<img>");
+          
+          reactImage.attr("src", topics[i].images.fixed_height.url);
+  
+          topicsDiv.append(p);
+          topicsDiv.append(reactImage);
+  
+          $("#gifsHere").prepend(topicsDiv);
+        }
       });
+  });
+});
 
-      // display the whole thing
-      makeButtons();
-    });
+
 
 
 // NOTES
+
+// MY API KEY EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg
 
 // TO PAUSE GIFS 
 /* <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">
@@ -43,7 +81,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     $(".gif").on("click", function() { - WHEN YOU CLICK THE IMAGE
-  
+
       var state = $(this).attr("data-state"); - STORE IMAGE STATE
 
       var animate = $(this).attr("data-animate"); - SET VARS FOR STILL STATE AND ANIMATED STATE
@@ -58,3 +96,4 @@
         $(this).attr("data-state", "still");
       } */
 
+// FROM DYNAMIC ELEMENTS
