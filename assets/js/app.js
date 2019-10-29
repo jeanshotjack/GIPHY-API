@@ -59,12 +59,16 @@ $(document).ready(function () {
           var p = $("<p>").text("Rating: " + results[i].rating);
 
           var reactImage = $("<img>");
-
-
           reactImage.attr("src", results[i].images.fixed_height.url);
-          var state = $("data-state"); 
-          var animate = $(".animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
-          var still = $(".still");
+          // var state = $("data-state"); 
+          // var animate = $(".animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
+          // var still = $(".still");
+          reactImage.addClass("gif");
+          reactImage.attr("data-still",results[i].images.fixed_height_still.url); // still image
+          reactImage.attr("data-animate",results[i].images.fixed_height.url); // animated image
+          reactImage.attr("data-state", "still"); // set the image state
+          
+
           gifDiv.append(p);
           gifDiv.append(reactImage);
 
@@ -73,16 +77,21 @@ $(document).ready(function () {
           $(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
 
            //- STORE IMAGE STATE
-          
-            
+           var state = $(this).attr("data-state"); 
+           var animate = $(this).attr("data-animate");
+           var still = $(this).attr("data-still");
           
             if (state === "still") { //- IT WILL ANIMATE IF STILL
-              $(this).attr("src", animate);
-              $(this).attr("data-state", "animate");
+              // $(this).attr("src", animate);
+              // $(this).attr("data-state", "animate");
+              $(this).attr("src", $(this).data("animate"));
+        $(this).attr("data-state", "animate");
             }
-            if (state === "animate") { //IT WILL PAUSE IF MOVING
-              $(this).attr("src", still);
+            else { //IT WILL PAUSE IF MOVING
+              $(this).attr("src", $(this).data("still"));
               $(this).attr("data-state", "still");
+              // $(this).attr("src", still);
+              // $(this).attr("data-state", "still");
             }
           });
 
