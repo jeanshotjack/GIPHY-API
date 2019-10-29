@@ -34,11 +34,13 @@ $(document).ready(function () {
 
 
   // this like sorta works but it's the wrong gifs
-  $("button").on("click", function () {
+  $(".topic").on("click", function () {
     $("#gifsHere").empty();
+    var topic = $(this).attr("data-name");
+    console.log("Topic: " + topic)
     // create queryURL
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      topics + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
+      topic + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
 
     // Performing an AJAX request with the queryURL
     $.ajax({
@@ -50,7 +52,7 @@ $(document).ready(function () {
 
         var results = response.data;
 
-        for (var i = 0; i < topics.length; i++) {
+        for (var i = 0; i < results.length; i++) {
 
           var gifDiv = $("<div>");
 
@@ -60,33 +62,51 @@ $(document).ready(function () {
 
 
           reactImage.attr("src", results[i].images.fixed_height.url);
-
+          var state = $("data-state"); 
+          var animate = $(".animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
+          var still = $(".still");
           gifDiv.append(p);
           gifDiv.append(reactImage);
 
           $("#gifsHere").prepend(gifDiv);
 
+          $(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
+
+           //- STORE IMAGE STATE
+          
+            
+          
+            if (state === "still") { //- IT WILL ANIMATE IF STILL
+              $(this).attr("src", animate);
+              $(this).attr("data-state", "animate");
+            }
+            if (state === "animate") { //IT WILL PAUSE IF MOVING
+              $(this).attr("src", still);
+              $(this).attr("data-state", "still");
+            }
+          });
+
         }
       });
   });
 
- // this part breaks the app for some reason and now it doesn't do anything
-$(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
+//  // this part breaks the app for some reason and now it doesn't do anything
+// $(".gif").on("click", function() { //- WHEN YOU CLICK THE IMAGE
 
-  var state = $(this).attr("data-state"); //- STORE IMAGE STATE
+//   var state = $(this).attr("data-state"); //- STORE IMAGE STATE
 
-  var animate = $(this).attr("data-animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
-  var still = $(this).attr("data-still");
+//   var animate = $(this).attr("data-animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
+//   var still = $(this).attr("data-still");
 
-  if (state === "still") { //- IT WILL ANIMATE IF STILL
-    $(this).attr("src", animate);
-    $(this).attr("data-state", "animate");
-  }
-  if (state === "animate") { //IT WILL PAUSE IF MOVING
-    $(this).attr("src", still);
-    $(this).attr("data-state", "still");
-  }
-});
+//   if (state === "still") { //- IT WILL ANIMATE IF STILL
+//     $(this).attr("src", animate);
+//     $(this).attr("data-state", "animate");
+//   }
+//   if (state === "animate") { //IT WILL PAUSE IF MOVING
+//     $(this).attr("src", still);
+//     $(this).attr("data-state", "still");
+//   }
+// });
 
 });
 
