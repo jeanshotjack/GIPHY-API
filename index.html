@@ -2,11 +2,30 @@
 <html>
 
 <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/app.js"></script>
+
+    <style>
+        .btn-color, #add-react {
+            background-color: #b0ff92;
+            color: #44355b;
+
+        }
+    </style>
 </head>
 
+
+
 <body>
+        <div class="jumbotron jumbotron-fluid mb-4 ml-4 mr-4" style="background-color: #44355B">
+                <div class="container">
+                    <h1 class="display-6 text-center font-weight-bolder" style="color: #F4F4F4">
+                        <i class="far fa-newspaper text-white"></i>
+                        Reaction GIF SEARCH</h1>
+                </div>
+            </div>
     <div class="container">
         <h1>Reaction GIF Search</h1>
 
@@ -14,9 +33,9 @@
 
         <form id="reaction-form">
             <label for="react-input"></label>
-            <input type="text" id="react-input"><br>
+            <input class="form-control" type="text" id="react-input"><br>
 
-            <input id="add-react" type="submit" value="FINE, SEARCH YOUR OWN REACTION">
+            <input id="add-react" class="btn btn-color m-2" type="submit" value="FINE, SEARCH YOUR OWN REACTION">
 
             <div id="gifsHere"></div>
         </form>

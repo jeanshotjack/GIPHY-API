@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#gifClick").empty();
     for (i = 0; i < topics.length; i++) {
       // create button 
-      var react = $("<button>");
+      var react = $("<button class='btn btn-color m-2'>");
       react.addClass("topic");
       // add class
       //add attribute
@@ -19,14 +19,16 @@ $(document).ready(function () {
     }
   }
 
-  // make another button for whatever user writes in
+  // make another button for whatever user writes in 
   $("#add-react").on("click", function (event) {
     // so it can't submit on its own
     event.preventDefault();
-    var react = $("#react-input").val().trim();
-    // The movie from the textbox is then added to our array
+    var react = $("#react-input").val().trim(); // call input in html form for write in topic
+    // then write in is then added to our array
     topics.push(react);
-    makeButtons();
+    makeButtons(); // call button function  
+    console.log(topics);
+     
   });
 
   // display the whole thing
@@ -34,13 +36,13 @@ $(document).ready(function () {
 
 
   // this like sorta works but it's the wrong gifs
-  $(".topic").on("click", function () {
+  $(document).on("click", ".topic", function() {
     $("#gifsHere").empty();
-    var topic = $(this).attr("data-name");
+    var topic = $(this).attr("data-name"); // give each jawn a topic name. notice it's different name than array
     console.log("Topic: " + topic)
     // create queryURL
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      topic + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10";
+      topic + "&api_key=EMs4wuevK1YxxkipNCqv9C6AgfZ2BMzg&limit=10"; // custom api key, limit set to 10 per
 
     // Performing an AJAX request with the queryURL
     $.ajax({
@@ -54,27 +56,27 @@ $(document).ready(function () {
 
         for (var i = 0; i < results.length; i++) {
 
-          var gifDiv = $("<div>");
+          var gifDiv = $("<div>"); // creates div for each gif
 
-          var p = $("<p>").text("Rating: " + results[i].rating);
+          var p = $("<p>").text("Rating: " + results[i].rating); // adds space to put in rating
 
-          var reactImage = $("<img>");
-          reactImage.attr("src", results[i].images.fixed_height.url);
+          var reactImage = $("<img>"); // creates img tag to attach gif to
+          reactImage.attr("src", results[i].images.fixed_height.url); // gives img its source
           // var state = $("data-state"); 
           // var animate = $(".animate"); //- SET VARS FOR STILL STATE AND ANIMATED STATE
           // var still = $(".still");
-          reactImage.addClass("gif");
+          reactImage.addClass("gif"); // adds the class of gif
           reactImage.attr("data-still", results[i].images.fixed_height_still.url); // still image
           reactImage.attr("data-animate", results[i].images.fixed_height.url); // animated image
           reactImage.attr("data-state", "still"); // set the image state
 
 
-          gifDiv.append(p);
-          gifDiv.append(reactImage);
+          gifDiv.append(p); 
+          gifDiv.append(reactImage); // append all to the variable for each gif
 
-          $("#gifsHere").prepend(gifDiv);
+          $("#gifsHere").prepend(gifDiv); // prepend to gif container where gifs will generate
 
-          $(".gif").on("click", function () { //- WHEN YOU CLICK THE IMAGE
+          $(".gif").on("click", function () { //- WHEN YOU CLICK THE gif (this makes it pause)
 
             //- STORE IMAGE STATE
             var state = $(this).attr("data-state");
