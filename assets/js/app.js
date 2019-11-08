@@ -56,7 +56,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < results.length; i++) {
 
-          var gifDiv = $("<div>"); // creates div for each gif
+          var gifDiv = $("<span>"); // creates div for each gif
 
           var p = $("<p>").text("Rating: " + results[i].rating); // adds space to put in rating
 
